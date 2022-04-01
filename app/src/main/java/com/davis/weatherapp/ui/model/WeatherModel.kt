@@ -6,8 +6,7 @@ import com.davis.weatherapp.data.RoomDb
 import com.davis.weatherapp.repository.ForecastRepository
 import com.davis.weatherapp.repository.WeatherRepository
 import com.davis.weatherapp.ui.view.WeatherContract
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class WeatherModel : WeatherContract.model {
@@ -18,7 +17,8 @@ class WeatherModel : WeatherContract.model {
         responseListener: ResponseListener
     ) {
         var currentWeatherDao = localDb!!.currentWeatherDao()
-        CoroutineScope(Dispatchers.IO).launch {
+//        CoroutineScope(Dispatchers.IO).launch {
+        GlobalScope.launch {
             var data = WeatherRepository().makeWeatherRequest(
                 latitude,
                 longitude,
@@ -43,7 +43,8 @@ class WeatherModel : WeatherContract.model {
         responseListener: ResponseListener
     ) {
         var forecastDao = localDb!!.ForecastDao()
-        CoroutineScope(Dispatchers.IO).launch {
+//        CoroutineScope(Dispatchers.IO).launch {
+        GlobalScope.launch {
             var data = ForecastRepository().makeForecastRequest(
                 latitude,
                 longitude,

@@ -33,7 +33,7 @@ class ForecastAdapter(var data: List<ForecastEntity>, var context: Context) :
                 R.drawable.clear
             }
         }
-        holder.tvTemp.text = int.toString()
+        holder.tvTemp.text = int.toString() + " \u00B0"
         holder.ivIcon.setImageDrawable(context.resources.getDrawable(image))
         var dateAsText = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(forecast.dt_txt)
         var dateFormatted = SimpleDateFormat("E, hh ").format(dateAsText)
