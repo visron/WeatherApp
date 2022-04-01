@@ -6,8 +6,9 @@ Used openWeatherApi to get data https://openweathermap.org
 
 ## Libraries
 
--Room Database
--Kotlin serialization
--Ktor as http client
--Gson
--google places library
+- Room Database
+- Kotlin serialization
+- Ktor as http client
+- Gson
+- google places library
+
