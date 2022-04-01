@@ -1,11 +1,6 @@
 package com.davis.weatherapp.model
 
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.TypeConverter
-import com.davis.weatherapp.util.DataConverter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.json.JSONObject
@@ -66,12 +61,13 @@ data class CurrentWeather(
                     optInt("visibility"),
                     ArrayList<Weather>().apply {
                         optJSONArray("weather")?.let {
-                            for(i in 0 until it.length()) {
+                            for (i in 0 until it.length()) {
                                 this.add(Weather.buildFromJson(it.getJSONObject(i))!!)
                             }
                         }
                     },
-                    Wind.buildFromJson(optJSONObject("wind"))!!
+                    Wind.buildFromJson(optJSONObject("wind"))!!,
+                    optString("dt_txt")
                 )
             }
             return null

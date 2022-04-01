@@ -3,7 +3,8 @@ package com.davis.weatherapp.core
 interface BaseContract {
     interface view {
         fun onShowLoading()
-        fun onJideLoading()
+        fun onHideLoading()
+        fun onError(error: String)
     }
 
     interface presenter {

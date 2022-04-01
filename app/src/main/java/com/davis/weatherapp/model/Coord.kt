@@ -10,9 +10,9 @@ import org.json.JSONObject
 @Serializable
 data class Coord(
     @SerialName("lat")
-    var lat: Int = 0, // 57
+    var lat: Double = 0.0, // 57
     @SerialName("lon")
-    var lon: Int = 0 // 10
+    var lon: Double = 0.0 // 10
 ) {
     companion object {
         @JvmStatic
@@ -20,8 +20,8 @@ data class Coord(
 
             jsonObject?.run {
                 return Coord(
-                    optInt("lat"),
-                    optInt("lon")
+                    optDouble("lat"),
+                    optDouble("lon")
                 )
             }
             return null
