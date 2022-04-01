@@ -101,6 +101,7 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
 
     override fun onWeatherLoaded(currentWeatherEntity: CurrentWeatherEntity) {
         if (currentWeatherEntity != null) {
+
             image = when (currentWeatherEntity.weather.main.trim().toLowerCase()) {
                 "rain" -> {
                     R.drawable.forest_rainy
@@ -123,14 +124,16 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
                     R.color.sunny
                 }
             }
-            ivMainImage.setImageDrawable(this.resources.getDrawable(image))
-            llMain.setBackgroundColor(this.resources.getColor(mainBgColor))
-            //var degreesymbol = Html.fromHtml("u00B0").toString()
-            tvCurrentTempHeader.text = currentWeatherEntity.main.temp.toString()
-            tvCurrentDescription.text = currentWeatherEntity.weather.description
-            tvCurrentTemp.text = currentWeatherEntity.main.temp.toString()
-            tvMaxTemp.text = currentWeatherEntity.main.tempMax.toString()
-            tvMinTemp.text = currentWeatherEntity.main.tempMin.toString()
+            runOnUiThread {
+                ivMainImage.setImageDrawable(baseContext.resources.getDrawable(image))
+                llMain.setBackgroundColor(baseContext.getColor(mainBgColor))
+                //var degreesymbol = Html.fromHtml("u00B0").toString()
+                tvCurrentTempHeader.text = currentWeatherEntity.main.temp.toString() + " \u00B0"
+                tvCurrentDescription.text = currentWeatherEntity.weather.description
+                tvCurrentTemp.text = currentWeatherEntity.main.temp.toString() + " \u00B0 \ncurrent"
+                tvMaxTemp.text = currentWeatherEntity.main.tempMax.toString() + " \u00B0 \nmax"
+                tvMinTemp.text = currentWeatherEntity.main.tempMin.toString() + " \u00B0 \nmin"
+            }
             presenter.requestForecast(
                 lastLocation.latitude.toString(),
                 lastLocation.longitude.toString()
@@ -139,10 +142,15 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
     }
 
     override fun onForecastLoaded(forecastEntity: List<ForecastEntity>) {
-        CoroutineScope(Dispatchers.Main).launch {
+        //CoroutineScope(Dispatchers.Unconfined).launch {
+        //GlobalScope.launch {
+        runOnUiThread {
+
             rvForecast.adapter =
                 ForecastAdapter(forecastEntity, this@MainActivity)
         }
+        //}
+        //  }
     }
 
     override fun onLocationChanged(location: Location) {
