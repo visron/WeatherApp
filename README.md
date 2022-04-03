@@ -6,24 +6,23 @@
 Sample Android App Written almost purely in kotlin
 
 Used openWeatherApi to get data https://openweathermap.org
+ 
+
+## How to install
+ - Clone the repo
+ - build and run the app from android studio.
 
 ## Features 
  - Fetch Current Weather Data from OpenWeatherMap Api 
  - Fetch Forecast Data from OpenWeatherMap Api
 
-## Libraries
-
-- Room Database
-- Kotlin serialization
-- Ktor as http client
-- Gson
-- google places library
-
 ## Pattern
  - MVP 
 
 ## CI/CD
- - Added github actions
+ ### Added github actions
+  -- set up master as automated branch.
+   --- merge to master through pull requests 
   - Sets up java 11
   - Runs Defined testcases 
   - Build the app
@@ -32,4 +31,10 @@ Used openWeatherApi to get data https://openweathermap.org
   - Add Maps to show markers of different locations
   - Increase test coverage
 
-## How to replicate
+## Libraries
+
+- Room Database
+- Kotlin serialization
+- Ktor as http client
+- Gson
+- google places library
