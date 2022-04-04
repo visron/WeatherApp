@@ -6,7 +6,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.davis.weatherapp.R
@@ -38,7 +37,6 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
     }
 
     fun getLocation() {
-        Log.v("location", "got here")
         var locationProvide = LocationServices.getFusedLocationProviderClient(this)
         var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (ActivityCompat.checkSelfPermission(
@@ -49,8 +47,6 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Log.v("location", "got missing")
-
             ActivityCompat.requestPermissions(
                 this,
                 listOf<String>(
@@ -61,19 +57,14 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
             )
             return
         } else {
-            Log.v("location", "perms granted")
 
             var a = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-            Log.v("location", "perms granted $a")
-
             a
         }
         locationProvide.lastLocation.addOnSuccessListener {
-            Log.v("location", "fusedLocation $it")
         }
         if (lastLocation != null) {
-            Log.d("latlongFromLastKnown", "lat ${lastLocation.latitude}")
-            Log.d("latlongFromLastKnown", "long ${lastLocation.longitude}")
+
             if (!lastLocation.latitude.isNaN() || !lastLocation.longitude.isNaN()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     presenter.requestWeather(
@@ -82,12 +73,7 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
                     )
                 }
             }
-//            else if (!locationManager!!.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
-//            Log.v("location","provider not enabled")
-//            onError("Please Enable location on Device")
-//        }
             else {
-                Log.v("location", "requested updates")
                 locationManager.requestLocationUpdates(
                     LocationManager.PASSIVE_PROVIDER,
                     400,
@@ -127,7 +113,6 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
             runOnUiThread {
                 ivMainImage.setImageDrawable(baseContext.resources.getDrawable(image))
                 llMain.setBackgroundColor(baseContext.getColor(mainBgColor))
-                //var degreesymbol = Html.fromHtml("u00B0").toString()
                 tvCurrentTempHeader.text = currentWeatherEntity.main.temp.toString() + " \u00B0"
                 tvCurrentDescription.text = currentWeatherEntity.weather.description
                 tvCurrentTemp.text = currentWeatherEntity.main.temp.toString() + " \u00B0 \ncurrent"
@@ -142,19 +127,13 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
     }
 
     override fun onForecastLoaded(forecastEntity: List<ForecastEntity>) {
-        //CoroutineScope(Dispatchers.Unconfined).launch {
-        //GlobalScope.launch {
         runOnUiThread {
-
             rvForecast.adapter =
                 ForecastAdapter(forecastEntity, this@MainActivity)
         }
-        //}
-        //  }
     }
 
     override fun onLocationChanged(location: Location) {
-        Log.v("location", "on last location updated")
 
         var lastLocation = location
         var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -164,14 +143,12 @@ class MainActivity : BaseActivity(), WeatherContract.view, LocationListener {
 
     override fun onProviderDisabled(provider: String) {
         super.onProviderDisabled(provider)
-        Log.v("location", "on provider disabled")
         onError("Please Enable location on device")
 
     }
 
     override fun onProviderEnabled(provider: String) {
         super.onProviderEnabled(provider)
-        Log.v("location", "on provider enabled")
 
     }
 

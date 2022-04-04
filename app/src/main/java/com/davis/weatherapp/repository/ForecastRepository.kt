@@ -1,6 +1,5 @@
 package com.davis.weatherapp.repository
 
-import android.util.Log
 import com.davis.weatherapp.MainApp
 import com.davis.weatherapp.data.dao.ForecastDao
 import com.davis.weatherapp.model.dbmodels.ForecastEntity
@@ -18,7 +17,6 @@ class ForecastRepository {
         try {
             if (NetworkUtil.isNetworkAvailable()) {
                 var data = WeatherApi(ApiClass().getClient()).getForecast(lat, lon, units)
-                Log.v("forecastData", "" + data)
                 var forecastlist = ArrayList<ForecastEntity>()
                 for (i in 0 until data.cnt) {
                     var dataObj = data.weather.get(i)

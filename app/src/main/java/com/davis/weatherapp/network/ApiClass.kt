@@ -1,16 +1,12 @@
 package com.davis.weatherapp.network
 
-import android.util.Log
-
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.features.DefaultRequest
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.Logging
-import io.ktor.client.features.logging.Logger
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.observer.ResponseObserver
+import io.ktor.client.*
+import io.ktor.client.engine.android.*
+import io.ktor.client.features.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.client.features.observer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
@@ -35,7 +31,7 @@ class ApiClass {
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-                    Log.v("Logger Ktor =>", message)
+                    // Log.v("Logger Ktor =>", message)
                 }
 
             }
@@ -44,7 +40,7 @@ class ApiClass {
 
         install(ResponseObserver) {
             onResponse { response ->
-                Log.d("HTTP status:", "${response.status.value}")
+                //Log.d("HTTP status:", "${response.status.value}")
             }
         }
 
