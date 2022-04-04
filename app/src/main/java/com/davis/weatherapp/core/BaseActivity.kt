@@ -5,7 +5,6 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -74,7 +73,6 @@ open class BaseActivity : AppCompatActivity(), BaseContract.view {
 
     override fun onError(error: String) {
         var errorMessage = error
-        Log.v("onError", error)
         if (!error.trim().toLowerCase().equals("please check your internet connection")) {
             errorMessage = "Sorry, Something went wrong please try again later."
         }

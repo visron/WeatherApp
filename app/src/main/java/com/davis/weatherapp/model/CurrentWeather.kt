@@ -36,11 +36,6 @@ data class CurrentWeather(
     @SerialName("dt_txt")
     var dt_txt: String = "", // 1648291698
 ) {
-//    constructor(currentWeather :CurrentWeather):this(
-//        weather = weather,
-//    ){
-//
-//    }
 
     companion object {
         @JvmStatic

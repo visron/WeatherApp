@@ -1,6 +1,5 @@
 package com.davis.weatherapp.ui.model
 
-import android.util.Log
 import com.davis.weatherapp.core.ResponseListener
 import com.davis.weatherapp.data.RoomDb
 import com.davis.weatherapp.repository.ForecastRepository
@@ -25,7 +24,6 @@ class WeatherModel : WeatherContract.model {
                 "metric",
                 currentWeatherDao
             )
-            Log.v("WeatherModel", "data :: $data")
             if (data.toString().trim().toLowerCase().equals("no internet connection")) {
                 responseListener.onError("Please Check Your Internet Connection")
             } else
@@ -51,7 +49,6 @@ class WeatherModel : WeatherContract.model {
                 "metric",
                 forecastDao
             )
-            Log.v("WeatherModel", "data :: $data")
             if (data.toString().trim().toLowerCase().equals("no internet connection")) {
                 responseListener.onError("Please Check Your Internet Connection")
             } else
